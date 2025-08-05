@@ -1,5 +1,5 @@
-/** @TODO - Access the pokemon data from data.js */
-/**         and print to the console to check */
+let pokemon = pokemonArray[2];
+console.log(pokemon);
 
 
 /** @TODO - Update the page data using a single pokemon */
@@ -10,6 +10,24 @@
  *      4. Change the width of each stat bar using the 
  *          pokemon's base stats
  */
+let nameHeading = document.querySelector("#poke_name");
+nameHeading.innerHTML = `#${pokemon.id} - ${pokemon.name}`;
+
+let pokeImg = document.querySelector("#poke_img");
+pokeImg.src = pokemon.image[0];
+
+let types = document.querySelector("#poke_types");
+if (pokemon.type[1] == "none") {
+    types.innerHTML = `${pokemon.type[0]} - Type`;
+} else {
+    types.innerHTML = `${pokemon.type[0]}/${pokemon.type[1]} - Type`;
+}
+
+let statDivs = document.querySelectorAll("#poke_stats div");
+for (let i = 0; i < statDivs.length; i++) {
+    let stat = statDivs[i].id;
+    statDivs[i].style["width"] = `${pokemon.base[stat] * 4}px`;
+}
 
 
 /** @TODO - Assign #random_btn to pick a random starter on click */
@@ -21,3 +39,27 @@
  *          to the randomly-chosen pokemon
  *      4. Add an eventListener to #random_btn with our new function!
  */
+function getRandomPokemon() {
+    let pokemon = pokemonArray[Math.floor(Math.random() * pokemonArray.length)];
+    let nameHeading = document.querySelector("#poke_name");
+    nameHeading.innerHTML = `#${pokemon.id} - ${pokemon.name}`;
+
+    let pokeImg = document.querySelector("#poke_img");
+    pokeImg.src = pokemon.image[0];
+
+    let types = document.querySelector("#poke_types");
+    if (pokemon.type[1] == "none") {
+        types.innerHTML = `${pokemon.type[0]} - Type`;
+    } else {
+        types.innerHTML = `${pokemon.type[0]}/${pokemon.type[1]} - Type`;
+    }
+
+    let statDivs = document.querySelectorAll("#poke_stats div");
+    for (let i = 0; i < statDivs.length; i++) {
+        let stat = statDivs[i].id;
+        statDivs[i].style["width"] = `${pokemon.base[stat] * 4}px`;
+    }
+}
+
+let randomBtn = document.querySelector("#random_btn");
+randomBtn.addEventListener("click", getRandomPokemon);
